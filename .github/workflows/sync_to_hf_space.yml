@@ -12,7 +12,14 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push -f https://Niansuh:$HF_TOKEN@huggingface.co/spaces/Niansuh/HFLLMAPI main
+          GPG_KEY: ${{ secrets.GPG_KEY }}
+        run: |
+          git config --global user.name "Husnain"
+          git config --global user.email "niansuhtech@gmail.com"
+          git config --global commit.gpgsign true
+          git config --global user.signingkey $GPG_KEY
+          git push -f https://Niansuh:$HF_TOKEN@huggingface.co/spaces/Niansuh/HFLLMAPI main
